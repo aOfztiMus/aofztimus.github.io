@@ -2973,3 +2973,20 @@ h2.post-title.entry-title a:hover {
   color: #aaaaaa;
   margin-right: 5px;
 }
+/*------------------------------------------------------------------------------------------
+/* Youtube*/
+.video-responsive {
+  position: relative; /* ทำให้ container เป็น relative เพื่อให้ iframe สามารถกำหนด position: absolute; ได้ */
+  padding-bottom: 56.25%; /* กำหนด padding-bottom ตามอัตราส่วน 16:9 (height / width * 100) */
+  height: 0; /* กำหนดความสูงเป็น 0 เพื่อให้ padding-bottom กำหนดความสูง */
+  overflow: hidden; /* ป้องกันไม่ให้ iframe ล้น container */
+}
+
+.video-responsive iframe {
+  position: absolute; /* กำหนดให้ iframe เป็น absolute เพื่อให้ขยายเต็ม container */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+```
