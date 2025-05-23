@@ -3000,9 +3000,11 @@ h2.post-title.entry-title a:hover {
 
 /*Fb Comments Width Fix*/
 	.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
-		max-width: 100% !important;
-		width: 100% !important;
+		max-width: 70% !important;
+		width: 60% !important;
     align-items: center;
+    margin: auto;
+    background-color: #ffffff;
 	}
 
 ```
