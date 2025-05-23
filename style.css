@@ -2997,4 +2997,12 @@ h2.post-title.entry-title a:hover {
 .zoom-on-hover:hover {
   transform: scale(1.2); /* ขยายขนาด 1.2 เท่าเมื่อ hover */
 }
+
+/*Fb Comments Width Fix*/
+	.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
+		max-width: 100% !important;
+		width: 100% !important;
+    align-items: center;
+	}
+
 ```
