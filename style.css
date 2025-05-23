@@ -3002,10 +3002,10 @@ h2.post-title.entry-title a:hover {
 	.fb_iframe_widget_fluid_desktop, .fb_iframe_widget_fluid_desktop span, .fb_iframe_widget_fluid_desktop iframe {
 		/*max-width: 100% !important;
 		width: 100% !important;*/
-    margin-bottom: 400px !important;
+    margin-bottom: auto !important;
     margin-top: auto !important;
     padding: 0 !important;
-    background-color: #fdfdfd;
+    background-color: #ffffff;
 	}
 
 ```
