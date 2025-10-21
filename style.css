@@ -1,6 +1,6 @@
-/* style.css (ฉบับสมบูรณ์ล่าสุด - พร้อม Slideshow) */
+/* style.css (เวอร์ชันก่อนเพิ่ม Facebook Share Button) */
 
-/* --- 1. CSS Variables (ตัวแปรสี) --- */
+/* --- 1. CSS Variables --- */
 :root {
     --primary-color: #ff0000;
     --primary-hover: #ff9900;
@@ -32,6 +32,7 @@ body {
     background-color: var(--dark-bg);
     color: var(--text-light);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 .container {
@@ -77,25 +78,42 @@ body {
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
 }
 
 .btn-primary {
     background-color: var(--primary-color);
     color: white;
+    box-shadow: 0 4px 15px -5px rgba(255, 0, 0, 0.6);
 }
 .btn-primary:hover {
     background-color: var(--primary-hover);
     transform: translateY(-3px);
+    box-shadow: 0 6px 20px -5px rgba(255, 100, 100, 0.8);
 }
 
 .btn-secondary {
     background-color: transparent;
     color: white;
     border: 2px solid var(--primary-color);
-
 }
 .btn-secondary:hover {
     background-color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px -5px rgba(255, 100, 100, 0.5);
+}
+
+.sold-out {
+    background-color: #555 !important;
+    border-color: #555 !important;
+    color: #aaa !important;
+    pointer-events: none;
+    cursor: default;
+}
+.sold-out:hover {
+    transform: none;
+    box-shadow: none;
 }
 
 
@@ -117,6 +135,7 @@ body {
 .preloader-hidden {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
 }
 
 .spinner {
@@ -141,7 +160,8 @@ body {
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: 2px 0;
+    /* Adjusted padding for larger logo */
+    padding: 10px 0;
     background: transparent;
     transition: transform 0.4s ease, background-color 0.4s ease, padding 0.4s ease;
 }
@@ -150,7 +170,7 @@ body {
     background-color: var(--glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 2px 0;
+    padding: 5px 0; /* Adjusted scrolled padding */
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
@@ -172,7 +192,7 @@ body {
 }
 
 .nav-logo img {
-    height: 250px; /* ปรับขนาดโลโก้สำหรับ Desktop */
+    height: 150px; /* Large logo size for Desktop */
     width: auto;
     display: block;
     transition: opacity 0.3s ease;
@@ -195,6 +215,7 @@ body {
     font-weight: 400;
     position: relative;
     padding-bottom: 5px;
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .nav-link::after {
@@ -208,10 +229,19 @@ body {
     transition: width 0.3s ease;
 }
 
+.nav-link:hover {
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;
 }
+.nav-link.active {
+     color: var(--primary-color);
+}
+
 
 .hamburger {
     display: none;
@@ -229,30 +259,42 @@ body {
 
 
 /* --- 5. Slideshow for Home Section --- */
-/* ลบ .parallax-1 และ .caption ที่เคยมีใน section home ออก */
-
 .slideshow-container {
     position: relative;
     width: 100%;
-    height: 100vh; /* ให้เต็มความสูงของ viewport */
     overflow: hidden;
-    background-color: var(--dark-bg); /* สีสำรองถ้าภาพโหลดไม่ทัน */
+    background-color: var(--dark-bg);
+    padding-top: 170px; /* Adjusted for large header */
+    height: 100vh;
 }
 
 .mySlides {
-    display: none; /* ซ่อนทุกสไลด์เริ่มต้น */
-    height: 100%;
+    display: none;
+    height: calc(100vh - 170px);
     width: 100%;
     position: absolute;
-    top: 0;
+    top: 170px;
     left: 0;
 }
+.mySlides:first-child {
+    display: block;
+}
+
+.mySlides a { /* Style for clickable slides */
+     display: block;
+     height: 100%;
+     text-decoration: none;
+}
+.mySlides a:focus {
+     outline: none;
+}
+
 
 .mySlides img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* ทำให้รูปภาพคลุมพื้นที่โดยไม่เสียสัดส่วน */
-    filter: brightness(0.7); /* ทำให้ภาพมืดลงเล็กน้อยเพื่อให้อ่านข้อความง่ายขึ้น */
+    object-fit: cover;
+    filter: brightness(0.7);
 }
 
 .slide-text {
@@ -261,35 +303,35 @@ body {
     top: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    width: 90%; /* ปรับความกว้างของข้อความ */
+    width: 90%;
     color: #fff;
-    z-index: 2; /* ให้อยู่เหนือภาพ */
+    z-index: 2;
 }
 
-.slide-text span.border {
+.slide-text h1.border { /* Style for H1 */
     background-color: rgba(20, 20, 20, 0.7);
     padding: 18px 25px;
-    font-size: 2.8rem; /* เพิ่มขนาดตัวอักษร */
+    font-size: 2.8rem;
     letter-spacing: 10px;
     text-transform: uppercase;
-    display: inline-block; /* ทำให้ padding และ background ทำงานได้ดี */
-    margin-bottom: 15px;
+    display: inline-block;
+    margin: 0 0 15px 0; /* Adjusted margin */
+    /* font-weight: 700; (adjust if needed) */
 }
 
 .slide-text p {
     font-size: 1.5rem;
     margin-top: 10px;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5); /* เพิ่มเงาให้ข้อความ */
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-/* ปุ่ม Prev/Next */
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: 50%;
+    top: calc(170px + (100vh - 170px) / 2); /* Adjusted position */
+    transform: translateY(-50%);
     width: auto;
     padding: 16px;
-    margin-top: -22px;
     color: white;
     font-weight: bold;
     font-size: 30px;
@@ -309,37 +351,19 @@ body {
     background-color: rgba(0,0,0,0.8);
 }
 
-/* Animation */
 .fade {
     animation-name: fade;
     animation-duration: 1.5s;
 }
 
 @keyframes fade {
-    from {opacity: .4} 
+    from {opacity: .4}
     to {opacity: 1}
 }
 
-/* Dot Navigation (ถ้าเปิดใช้งานใน HTML) */
-.dot {
-    cursor: pointer;
-    height: 15px;
-    width: 15px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-    transition: background-color 0.6s ease;
-}
 
-.active-dot, .dot:hover {
-    background-color: var(--primary-color);
-}
-
-
-/* --- 6. Parallax Section (สำหรับ Parallax-2 ยังคงอยู่) --- */
+/* --- 6. Parallax Section (for Parallax-2) --- */
 .parallax {
-    min-height: 100vh;
     position: relative;
     background-attachment: fixed;
     background-position: center;
@@ -348,11 +372,10 @@ body {
 }
 
 .parallax-2 {
-    background-image: url('assets/parallax-bg2.jpg'); /* เปลี่ยนเป็น .jpg ถ้ามี */
+    background-image: url('assets/parallax-bg2.jpg');
     min-height: 500px;
 }
 
-/* caption สำหรับ parallax-2 ยังคงอยู่ */
 .caption {
     position: absolute;
     left: 50%;
@@ -372,7 +395,7 @@ body {
 }
 
 
-/* --- 7. Component-Specific Sections (ส่วนนี้เหมือนเดิม) --- */
+/* --- 7. Component-Specific Sections --- */
 
 /* ABOUT SECTION */
 .about-container {
@@ -380,11 +403,19 @@ body {
     align-items: center;
     gap: 60px;
 }
-.about-image { flex: 1; }
+.about-image {
+    flex: 1;
+    overflow: hidden;
+    border-radius: 15px;
+}
 .about-image img {
     width: 100%;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    display: block;
+    transform: scale(1.1);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.about-image.aos-animate img {
+    transform: scale(1);
 }
 .about-content { flex: 1.5; }
 .about-content h2 { text-align: left; }
@@ -407,15 +438,22 @@ body {
     background: var(--dark-bg);
     border-radius: 10px;
     overflow: hidden;
-    text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .album-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.7);
 }
-.album-card img { width: 100%; display: block; }
-.album-info { padding: 20px; }
+.album-card img {
+    width: 100%;
+    display: block;
+    transform: scale(1.1);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.album-card.aos-animate img {
+    transform: scale(1);
+}
+.album-info { padding: 20px; text-align: center; }
 .album-info h3 { margin-bottom: 5px; }
 .album-info p {
     color: var(--text-dark);
@@ -424,7 +462,8 @@ body {
 .streaming-links a {
     color: var(--text-dark);
     font-size: 1.5rem;
-    margin-right: 15px;
+    margin: 0 7px;
+    display: inline-block;
     transition: color 0.3s ease;
 }
 .streaming-links a:hover { color: var(--primary-color); }
@@ -456,10 +495,7 @@ body {
 }
 .tour-info { flex-grow: 1; }
 .tour-info p { color: var(--text-dark); }
-.sold-out {
-    background-color: #555;
-    pointer-events: none;
-}
+/* .sold-out rule is already defined under .btn */
 
 /* NEWS SECTION */
 .news-grid {
@@ -478,11 +514,20 @@ body {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0,0,0,0.7);
 }
+.news-image {
+     overflow: hidden;
+     height: 200px;
+}
 .news-image img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     display: block;
+    transform: scale(1.1);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.news-card.aos-animate .news-image img {
+    transform: scale(1);
 }
 .news-content { padding: 20px; }
 .news-category {
@@ -585,14 +630,66 @@ body {
 }
 #modal-ticket-btn {
     margin-top: 20px;
-    display: inline-block; /* ทำให้ margin-top ทำงาน */
+    display: inline-block;
 }
 
-/* --- 8. Footer --- */
+
+/* --- 8. Back To Top Button --- */
+#back-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.4s ease, background-color 0.3s ease;
+}
+
+#back-to-top-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+#back-to-top-btn.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/* --- 9. Footer --- */
+.footer-logo {
+    text-align: center;
+    margin-bottom: px;
+}
+
+.footer-logo img {
+    height: 100px;
+    width: auto;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .main-footer {
     padding: 40px 0;
     text-align: center;
     background-color: #0a0a0a;
+}
+.footer-social {
+    /* Add margin if logo is present */
+    margin-top: 20px;
 }
 .footer-social a {
     color: var(--text-dark);
@@ -601,26 +698,55 @@ body {
     transition: color 0.3s ease;
 }
 .footer-social a:hover { color: var(--primary-color); }
-.copyright {
+
+.footer-contact {
     margin-top: 20px;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+.footer-contact a {
+    color: var(--text-light);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.footer-contact a:hover {
+    color: var(--primary-color);
+}
+.back-to-top-paragraph {
+     margin-top: 20px;
+}
+.footer-top-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+.footer-top-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.copyright {
+    margin-top: 10px;
     color: #555;
     font-size: 0.9rem;
 }
 
 
-/* --- 9. Responsive Design (ต้องอยู่ล่างสุดเสมอ) --- */
+/* --- 10. Responsive Design (Must be last) --- */
 @media(max-width: 768px) {
     .section-title { font-size: 2rem; }
-    
+
     .hamburger { display: block; }
     .hamburger.active .bar:nth-child(2) { opacity: 0; }
     .hamburger.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
     .hamburger.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-    
+
     .nav-menu {
         position: fixed;
         left: -100%;
-        top: 75px; /* ปรับให้พอดีกับ Header ที่ปรับขนาดแล้ว */
+        /* Header height scrolled on tablet ~130px */
+        top: 130px;
         flex-direction: column;
         background-color: #181818;
         width: 100%;
@@ -629,7 +755,7 @@ body {
     }
     .nav-menu.active { left: 0; }
     .nav-menu li { padding: 15px 0; }
-    
+
     .about-container { flex-direction: column; }
     .about-content h2 { text-align: center; }
     .about-content h2::after { left: 50%; transform: translateX(-50%); }
@@ -638,53 +764,11 @@ body {
     .tour-date { margin: 0; }
     .tour-info { margin-bottom: 15px; }
 
-    /* แก้ไขขนาดโลโก้สำหรับ Tablet */
+    /* Logo size for Tablet */
     .nav-logo img {
-        height: 200px;
+        height: 120px;
     }
 
-    /* แก้ไข Padding ของ Header บนจอเล็ก */
+    /* Fixed Header Padding for smaller screens */
     .main-header,
-    .main-header.scrolled {
-        padding: 15px 0;
-    }
-
-    /* ปรับขนาดข้อความใน Slideshow สำหรับ Mobile */
-    .slide-text span.border {
-        font-size: 2rem;
-        letter-spacing: 5px;
-        padding: 15px 20px;
-    }
-    .slide-text p {
-        font-size: 1.2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    /* แก้ไขขนาดโลโก้สำหรับ Mobile */
-    .nav-logo img {
-        height: 150px;
-    }
-
-    /* ปรับ top ของ nav-menu สำหรับ Mobile ให้พอดีกับ Header ที่เล็กลง */
-    .nav-menu {
-        top: 68px; /* ปรับให้พอดีกับ Header ที่ปรับขนาดแล้วบน Mobile */
-    }
-
-    /* ปรับขนาดข้อความใน Slideshow สำหรับ Mobile */
-    .slide-text span.border {
-        font-size: 1.5rem;
-        letter-spacing: 3px;
-        padding: 10px 15px;
-    }
-    .slide-text p {
-        font-size: 1rem;
-    }
-
-    .prev, .next {
-        font-size: 20px;
-        padding: 10px;
-        margin-top: -15px;
-    }
-}
-
+    .main-header.sc

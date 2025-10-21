@@ -1,148 +1,20 @@
-// script.js (ฉบับสมบูรณ์ล่าสุด - พร้อม Slideshow)
+// script.js (ฉบับสมบูรณ์ แก้ไขล่าสุด)
 
-let slideIndex = 0; // ตัวแปรสำหรับเก็บว่ากำลังแสดงสไลด์ไหน
-let slideshowTimeout; // ตัวแปรสำหรับเก็บ setTimeout เพื่อหยุด/เริ่ม slideshow
+let slideIndex = 1; // ✨ เริ่มต้นที่สไลด์ 1 ✨
+let slideshowTimeout;
 
-document.addEventListener('DOMContentLoaded', () => {
-    // --- PRELOADER LOGIC ---
-    const preloader = document.querySelector('.preloader');
-    window.onload = function() {
-        preloader.classList.add('preloader-hidden');
-        showSlides(); // ✨ เริ่ม Slideshow ทันทีที่เว็บโหลดเสร็จ ✨
-    };
-    
-    // --- AOS INITIALIZATION ---
-    AOS.init({
-        duration: 1000,
-        once: true,
-    });
-
-    // --- SLIDESHOW LOGIC ---
-    // ฟังก์ชันสำหรับแสดงสไลด์
-    function showSlides() {
-        let i;
-        let slides = document.getElementsByClassName("mySlides");
-        // let dots = document.getElementsByClassName("dot"); // ถ้ามีการใช้ dot navigation
-
-        for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";  
-        }
-        slideIndex++;
-        if (slideIndex > slides.length) {slideIndex = 1}    
-        
-        // ถ้ามีการใช้ dot navigation
-        // for (i = 0; i < dots.length; i++) {
-        //     dots[i].className = dots[i].className.replace(" active-dot", "");
-        // }
-
-        if (slides[slideIndex-1]) { // เช็คว่าสไลด์มีอยู่จริงก่อนที่จะแสดง
-            slides[slideIndex-1].style.display = "block";  
-            // if (dots[slideIndex-1]) { // ถ้ามีการใช้ dot navigation
-            //     dots[slideIndex-1].className += " active-dot";
-            // }
-        }
-        
-        // ตั้งเวลาให้เปลี่ยนสไลด์อัตโนมัติทุก 5 วินาที
-        clearTimeout(slideshowTimeout); // ล้าง timeout เก่าก่อนตั้งใหม่
-        slideshowTimeout = setTimeout(showSlides, 5000); 
-    }
-
-    // ฟังก์ชันสำหรับเปลี่ยนสไลด์ด้วยปุ่ม Prev/Next
-    // (ประกาศเป็น Global เพื่อให้ HTML onclick เรียกใช้ได้)
-    window.plusSlides = function(n) {
-        clearTimeout(slideshowTimeout); // หยุดการสไลด์อัตโนมัติชั่วคราว
-        slideIndex += n - 1; // ปรับ index
-        if (slideIndex < 0) { slideIndex = document.getElementsByClassName("mySlides").length -1;} // ถ้าไปซ้ายสุด ให้วนกลับมาภาพสุดท้าย
-        if (slideIndex >= document.getElementsByClassName("mySlides").length) {slideIndex = 0;} // ถ้าไปขวาสุด ให้วนกลับมาภาพแรก
-
-        // แสดงสไลด์ที่ถูกต้อง
-        let slides = document.getElementsByClassName("mySlides");
-        for (let i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
-        }
-        if (slides[slideIndex]) { // เช็คว่าสไลด์มีอยู่จริงก่อนที่จะแสดง
-            slides[slideIndex].style.display = "block";
-        }
-        
-        // รีเซ็ตการนับเวลาสำหรับสไลด์อัตโนมัติหลังจากเปลี่ยนด้วยมือ
-        slideIndex++; // เพิ่มค่ากลับไป เพื่อให้ showSlides() ทำงานต่อเนื่อง
-        slideshowTimeout = setTimeout(showSlides, 5000);
-    }
-    
-    // (ฟังก์ชัน currentSlide สำหรับ dot navigation ถ้าต้องการใช้)
-    // window.currentSlide = function(n) {
-    //     clearTimeout(slideshowTimeout);
-    //     slideIndex = n - 1;
-    //     showSlides();
-    // }
-
-    // --- ALL SCROLL-RELATED LOGIC ---
-    const header = document.querySelector('.main-header');
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    let lastScrollTop = 0;
-
-    window.addEventListener('scroll', () => {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-        // 1. Logic สำหรับซ่อน/แสดง Header
-        if (scrollTop > 100) {
-            if (scrollTop > lastScrollTop) {
-                header.classList.add('header-hidden'); // เลื่อนลง
-            } else {
-                header.classList.remove('header-hidden'); // เลื่อนขึ้น
-            }
-        }
-        
-        // 2. Logic สำหรับพื้นหลังเบลอ
-        if (scrollTop > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-        
-        // 3. Logic สำหรับ Active Link
-        let currentSectionId = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            if (scrollTop >= sectionTop - 150) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').includes(currentSectionId)) {
-                link.classList.add('active');
-            }
-        });
-
-        // อัปเดตตำแหน่ง scroll ล่าสุด
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    });
-    
-    // --- MOBILE HAMBURGER MENU ---
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-    document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    }));
-
-}); // <-- ปิด DOMContentLoaded ที่นี่
-
-// --- NEWS MODAL LOGIC ---
-// (โค้ดส่วนนี้อยู่นอก DOMContentLoaded ถูกต้องแล้ว)
+// --- เลือก Elements หลักที่ใช้บ่อยๆ ---
+const preloader = document.querySelector('.preloader');
+const header = document.querySelector('.main-header');
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+const backToTopButton = document.getElementById('back-to-top-btn');
 const newsCards = document.querySelectorAll('.news-card');
-// --- TOUR MODAL LOGIC ---
 const tourButtons = document.querySelectorAll('.open-tour-modal-btn');
 const modalOverlay = document.querySelector('.modal-overlay');
 const closeBtn = document.querySelector('.close-btn');
-
-// เลือก element ภายใน modal
 const modalImage = document.querySelector('.modal-image');
 const modalCategory = document.querySelector('.modal-category');
 const modalDate = document.querySelector('.modal-date');
@@ -150,70 +22,226 @@ const modalTitle = document.querySelector('.modal-title');
 const modalBody = document.querySelector('.modal-body');
 const modalTicketBtn = document.getElementById('modal-ticket-btn');
 
+// --- Functions ---
 
-// ฟังก์ชันเปิด Modal
+// Slideshow Functions
+function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    if (!slides || slides.length === 0) return;
+
+    // ✨ ทำให้ index วนลูปถูกต้อง ✨
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+
+    // ซ่อนสไลด์ทั้งหมด
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+
+    // แสดงสไลด์ปัจจุบัน
+    if (slides[slideIndex - 1]) {
+        slides[slideIndex - 1].style.display = "block";
+    }
+
+    // ตั้งเวลาสไลด์ถัดไป (ถ้าไม่ได้เรียกด้วย plusSlides)
+    clearTimeout(slideshowTimeout);
+    slideshowTimeout = setTimeout(() => {
+        showSlides(slideIndex += 1); // เลื่อนไปสไลด์ถัดไป
+    }, 7000); // ✨ แก้เวลาตรงนี้ (7 วินาที) ✨
+}
+
+// ฟังก์ชันสำหรับปุ่ม Prev/Next
+window.plusSlides = function(n) {
+    clearTimeout(slideshowTimeout); // หยุด auto slide ชั่วคราว
+    showSlides(slideIndex += n); // แสดงสไลด์ที่ต้องการ
+}
+
+// Modal Functions
 function openModal(card) {
     const data = card.dataset;
     modalImage.src = data.image;
+    modalImage.alt = `Image for news post: ${data.title}`; // เพิ่ม Alt Text
     modalCategory.textContent = data.category;
     modalDate.textContent = data.date;
     modalTitle.textContent = data.title;
     modalBody.textContent = data.content;
+    modalTicketBtn.style.display = 'none';
     modalOverlay.classList.add('active');
 }
 
-// ฟังก์ชันปิด Modal
+function openTourModal(tourItem) {
+    const data = tourItem.dataset;
+    modalImage.src = data.image;
+    modalImage.alt = `Promotional image for event: ${data.title}`; // เพิ่ม Alt Text
+    modalTitle.textContent = data.title;
+    modalBody.textContent = data.description;
+    modalCategory.textContent = data.location;
+    modalDate.textContent = data.date;
+
+    modalTicketBtn.style.display = 'none';
+
+    // 1. ตรวจสอบเงื่อนไขการแสดงปุ่ม "Buy Tickets"
+    if (data.status === 'available' && data.ticketLink && data.ticketLink !== '#') {
+        // เงื่อนไข: สถานะ Available และมีลิงก์ตั๋วที่ใช้งานได้จริง
+        modalTicketBtn.href = data.ticketLink;
+        modalTicketBtn.textContent = 'Buy Tickets';
+        modalTicketBtn.classList.remove('sold-out');
+        modalTicketBtn.style.display = 'inline-block'; // << แสดงปุ่ม
+        
+    } else if (data.status === 'sold-out') {
+        // เงื่อนไข: สถานะเป็น Sold Out 
+        // เราจะแสดงปุ่ม "Sold Out" ที่กดไม่ได้แทน
+        modalTicketBtn.href = '#'; // ไม่ให้คลิกไปไหน
+        modalTicketBtn.textContent = 'Sold Out';
+        modalTicketBtn.classList.add('sold-out');
+        modalTicketBtn.style.display = 'inline-block'; // << แสดงปุ่ม
+        
+    } 
+    // ถ้าไม่ใช่เงื่อนไขข้างบนทั้งหมด (เช่น ไม่มีสถานะ หรือ data-ticket-link ไม่มี/เป็น #) 
+    // ปุ่มจะถูกซ่อนไว้ตามค่าเริ่มต้น 'display = none' ที่เรากำหนดไว้ด้านบน
+    
+    // กำหนดให้ Category และ Date แสดงใน Modal ด้วยความเรียบร้อย
+    modalCategory.style.display = 'inline-block';
+    modalDate.style.display = 'inline-block';
+
+    modalOverlay.classList.add('active');
+}
+
 function closeModal() {
     modalOverlay.classList.remove('active');
 }
 
-// เพิ่ม Event Listener ให้การ์ดข่าวทุกใบ
-newsCards.forEach(card => {
-    card.addEventListener('click', () => {
-        openModal(card);
+
+// --- Main Execution after DOM is ready ---
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- Start Preloader & Slideshow ---
+    window.onload = function() {
+        if (preloader) {
+             preloader.classList.add('preloader-hidden');
+        }
+        showSlides(slideIndex); // เริ่ม Slideshow ที่สไลด์แรก
+    };
+
+    // --- AOS INITIALIZATION ---
+    AOS.init({
+        duration: 1000,
+        once: true,
     });
-});
+    // --- SINGLE SCROLL LISTENER FOR ALL EFFECTS ---
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-// เพิ่ม Event Listener ให้ปุ่มปิด
-closeBtn.addEventListener('click', closeModal);
+        // 1. Header Hide/Show Logic
+        if (header) { // Check if header exists
+            if (scrollTop > 100) {
+                if (scrollTop > lastScrollTop) {
+                    header.classList.add('header-hidden');
+                } else {
+                    header.classList.remove('header-hidden');
+                }
+            } else {
+                header.classList.remove('header-hidden');
+            }
 
-// เพิ่ม Event Listener ให้ Overlay (คลิกที่พื้นหลังเพื่อปิด)
-modalOverlay.addEventListener('click', (event) => {
-    if (event.target === modalOverlay) {
-        closeModal();
-    }
-});
-tourButtons.forEach(button => {
-    button.addEventListener('click', (event) => {
-        event.preventDefault(); // ป้องกันไม่ให้ลิงก์ '#' เด้งขึ้นบน
-
-        // หา .tour-item ที่เป็นแม่ของปุ่มที่ถูกคลิก
-        const tourItem = button.closest('.tour-item');
-        const data = tourItem.dataset;
-
-        // นำข้อมูล Tour ไปใส่ใน Modal
-        modalImage.src = data.image;
-        modalTitle.textContent = data.title;
-        modalBody.textContent = data.description;
-        
-        // ปรับ Header ของ Modal
-        modalCategory.textContent = data.location; // ใช้ช่อง Category แสดง Location
-        modalDate.textContent = data.date;
-        
-        // จัดการปุ่มซื้อบัตร
-        if (data.status === 'available' && data.ticketLink !== '#') {
-            modalTicketBtn.href = data.ticketLink;
-            //modalTicketBtn.style.display = 'inline-block'; // แสดงปุ่ม
-            //modalTicketBtn.textContent = 'Coming Soon';
-            modalTicketBtn.classList.remove('sold-out');
-        } else {
-            modalTicketBtn.style.display = 'inline-block'; // แสดงปุ่ม
-            modalTicketBtn.textContent = 'Out Now';
-            modalTicketBtn.classList.add('sold-out'); // เพิ่มคลาส sold-out
-            modalTicketBtn.href = '#'; // ไม่ให้คลิกไปไหน
+            // 2. Header Scrolled Background Logic
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         }
 
-        // แสดง Modal
-        modalOverlay.classList.add('active');
+        // 3. Active Link Logic
+        let currentSectionId = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            // ✨ ปรับ Offset ให้แม่นยำขึ้นตามความสูง Header ✨
+            const headerHeight = header ? header.offsetHeight : 70; // ความสูง Header โดยประมาณ
+            if (scrollTop >= sectionTop - headerHeight * 1.5) { // เช็คที่ระยะ 1.5 เท่าของ Header
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+         navLinks.forEach(link => {
+             link.classList.remove('active');
+             const linkHref = link.getAttribute('href');
+             // ใช้ endsWith เพื่อให้แม่นยำสำหรับ #home-slideshow
+             if (linkHref && currentSectionId && linkHref.endsWith(currentSectionId)) {
+                 link.classList.add('active');
+             // ✨ ทำให้ Home active ตอนอยู่บนสุด (เช็คกับ ID slideshow) ✨
+             } else if (!currentSectionId && linkHref && linkHref.endsWith('home-slideshow')) {
+                  link.classList.add('active');
+             }
+         });
+
+
+        // 4. Back To Top Button Logic
+        if (backToTopButton) {
+            if (scrollTop > 300) {
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        }
+
+        // Update last scroll position
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
-});
+
+    // --- MOBILE HAMBURGER MENU ---
+    if (hamburger && navMenu) {
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+             if (hamburger.classList.contains('active')) {
+                 hamburger.classList.remove('active');
+                 navMenu.classList.remove('active');
+             }
+        }));
+    }
+
+}); // <-- End of DOMContentLoaded
+
+// --- ATTACH MODAL LISTENERS ---
+
+// News Modals
+if (newsCards) {
+    newsCards.forEach(card => {
+        card.addEventListener('click', () => {
+            openModal(card);
+        });
+    });
+}
+
+// Tour Modals
+if (tourButtons) {
+    tourButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const tourItem = button.closest('.tour-item');
+            if (tourItem) {
+                 openTourModal(tourItem);
+            }
+        });
+    });
+}
+
+// General Modal Close Listeners
+if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+}
+if (modalOverlay) {
+    modalOverlay.addEventListener('click', (event) => {
+        // Close only if clicking the overlay itself, not the content inside
+        if (event.target === modalOverlay) {
+            closeModal();
+        }
+    });
+}
+
+// Back to Top Button Click (Smooth scroll handled by CSS `scroll-behavior: smooth`)
+// No extra JS needed unless customizing scroll behavior further.
