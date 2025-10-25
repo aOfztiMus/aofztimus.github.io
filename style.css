@@ -170,7 +170,7 @@ body {
     background-color: var(--glass-bg);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    padding: 5px 0; /* Adjusted scrolled padding */
+    padding: 10px 0; /* Adjusted scrolled padding */
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
 }
 
@@ -192,7 +192,7 @@ body {
 }
 
 .nav-logo img {
-    height: 150px; /* Large logo size for Desktop */
+    height: 120px; /* Large logo size for Desktop */
     width: auto;
     display: block;
     transition: opacity 0.3s ease;
@@ -201,7 +201,9 @@ body {
 .nav-logo:hover img {
     opacity: 0.8;
 }
-
+.main-header.scrolled .nav-logo img {
+    height: 70px; /* ขนาดตอนเลื่อน */
+}
 .nav-menu {
     display: flex;
     list-style: none;
@@ -264,16 +266,16 @@ body {
     width: 100%;
     overflow: hidden;
     background-color: var(--dark-bg);
-    padding-top: 170px; /* Adjusted for large header */
-    height: 100vh;
+    padding-top: 130px; /* Adjusted for large header */
+    height: 70vh;
 }
 
 .mySlides {
     display: none;
-    height: calc(100vh - 170px);
+    height: calc(100% - 0px);
     width: 100%;
     position: absolute;
-    top: 170px;
+    top: 130px;
     left: 0;
 }
 .mySlides:first-child {
@@ -311,7 +313,7 @@ body {
 .slide-text h1.border { /* Style for H1 */
     background-color: rgba(20, 20, 20, 0.7);
     padding: 18px 25px;
-    font-size: 2.8rem;
+    font-size: 2.5rem;
     letter-spacing: 10px;
     text-transform: uppercase;
     display: inline-block;
@@ -320,7 +322,7 @@ body {
 }
 
 .slide-text p {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-top: 10px;
     text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
@@ -328,7 +330,7 @@ body {
 .prev, .next {
     cursor: pointer;
     position: absolute;
-    top: calc(170px + (100vh - 170px) / 2); /* Adjusted position */
+    top: calc(130px + (70vh - 130px) / 2); /* Adjusted position */
     transform: translateY(-50%);
     width: auto;
     padding: 16px;
@@ -766,10 +768,14 @@ body {
 
     /* Logo size for Tablet */
     .nav-logo img {
-        height: 120px;
+        height: 100px;
     }
+    .main-header.scrolled .nav-logo img {
+    height: 60px; /* ขนาดตอนเลื่อน Tablet */
+}
 .black-ribbon {  position: fixed;  z-index: 9999;  width: 70px;}@media only all and (min-width: 768px) {  .black-ribbon {    width: auto;  }}.stick-left { left: 0; }.stick-right { right: 0; }.stick-top { top: 0; }.stick-bottom { bottom: 0; }
     /* Fixed Header Padding for smaller screens */
     .main-header,
 
     .main-header.sc
+
