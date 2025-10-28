@@ -293,8 +293,10 @@ body {
 .mySlides img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain; /* ✨ เปลี่ยนจาก cover เป็น contain ✨ */
     filter: brightness(0.7);
+    /* ✨ เพิ่ม background color (เผื่อภาพไม่เต็มกรอบ) ✨ */
+    background-color: var(--dark-bg); /* หรือ #000 */
 }
 
 .slide-text {
@@ -733,7 +735,6 @@ body {
 }
 
 
-/* --- 10. Responsive Design (Must be last) --- */
 @media(max-width: 768px) {
     .section-title { font-size: 2rem; }
 
@@ -745,7 +746,7 @@ body {
     .nav-menu {
         position: fixed;
         left: -100%;
-        /* Header height scrolled on tablet ~130px */
+        /* ✨ ความสูง Header ตอนเลื่อน Tablet ~130px */
         top: 130px;
         flex-direction: column;
         background-color: #181818;
@@ -768,7 +769,41 @@ body {
     .nav-logo img {
         height: 120px;
     }
+    /* Logo size when scrolled */
+     .main-header.scrolled .nav-logo img {
+        height: 70px; /* ✨ เพิ่มขนาดตอนเลื่อน Tablet */
+    }
+
 
     /* Fixed Header Padding for smaller screens */
     .main-header,
-    .main-header.sc
+    .main-header.scrolled {
+        padding: 5px 0; /* ✨ ใช้ค่า Padding ตอนเลื่อนเสมอ */
+    }
+
+    /* Slideshow adjustments for Tablet */
+     .slideshow-container {
+         padding-top: 130px; /* ✨ Header height scrolled on tablet */
+         height: 100vh;      /* ✨ ทำให้ container สูงเต็มจอเสมอ ✨ */
+     }
+     .mySlides {
+         top: 130px;
+          /* ✨ ความสูงสไลด์ = เต็มจอ ลบด้วย padding-top ✨ */
+         height: calc(100vh - 130px);
+     }
+     .prev, .next {
+          /* ✨ จัดกลางแนวตั้งเทียบกับ .mySlides ✨ */
+         top: calc(130px + (100vh - 130px) / 2);
+         transform: translateY(-50%);
+     }
+
+    /* Text size in Slideshow for Tablet */
+    .slide-text h1.border { /* Target H1 now */
+        font-size: 2rem;
+        letter-spacing: 5px;
+        padding: 15px 20px;
+    }
+    .slide-text p {
+        font-size: 1.2rem;
+    }
+}

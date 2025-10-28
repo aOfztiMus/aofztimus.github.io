@@ -48,7 +48,7 @@ function showSlides(n) {
     clearTimeout(slideshowTimeout);
     slideshowTimeout = setTimeout(() => {
         showSlides(slideIndex += 1); // เลื่อนไปสไลด์ถัดไป
-    }, 7000); // ✨ แก้เวลาตรงนี้ (7 วินาที) ✨
+    }, 10000); // ✨ แก้เวลาตรงนี้ (10 วินาที) ✨
 }
 
 // ฟังก์ชันสำหรับปุ่ม Prev/Next
