@@ -192,8 +192,8 @@ body {
 }
 
 .nav-logo img {
-    height: 150px; /* Large logo size for Desktop */
-    width: auto;
+    height: 80px; /* Large logo size for Desktop */
+    width: 53px;
     display: block;
     transition: opacity 0.3s ease;
 }
@@ -810,5 +810,6 @@ body {
     }
 
 }
+
 
 
