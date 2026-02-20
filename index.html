@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>พระผู้เสด็จสู่สวรรคาลัย | aOfztiMus ProMaxz </title>
+    
+    <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Kanit', sans-serif;
+            background-color: #000;
+            filter: grayscale(1); /* คุมโทนขาวดำตามภาพ */
+            overflow-x: hidden;
+        }
+
+        /* รูปพื้นหลังแบบเต็มจอ */
+        .intro-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Container หลักจัดวางแบบแนวนอน (Desktop) */
+        .grid-group {
+            display: flex;
+            flex-direction: row; 
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            gap: 50px;
+        }
+
+        /* ส่วนรูปภาพฝั่งซ้าย */
+        .intro-image {
+            flex: 1;
+            text-align: right;
+        }
+
+        .intro-image img {
+            max-width: 100%;
+            height: auto;
+            max-height: 75vh;
+            display: inline-block;
+            /* เพิ่มเงาเรืองแสงรอบกรอบรูปตามตัวอย่าง */
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
+        }
+
+        /* ส่วนเนื้อหาฝั่งขวา */
+        .intro-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* จัดทุกอย่างในคอลัมน์ขวาให้อยู่กึ่งกลาง */
+            text-align: center;  /* จัดข้อความให้อยู่กึ่งกลาง */
+            gap: 25px;           /* ระยะห่างระหว่างข้อความ เครื่องเล่นเสียง และปุ่ม */
+        }
+
+        .intro-text {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ปรับแต่งเครื่องเล่นเสียง */
+        audio {
+            width: 300px;
+            height: 40px;
+            opacity: 0.7;
+            filter: invert(1); /* ทำให้เครื่องเล่นเสียงเป็นโทนขาวดำเข้ากับเว็บ */
+        }
+
+        .intro-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .intro-button {
+            cursor: pointer;
+            transition: transform 0.3s ease, filter 0.3s;
+            max-width: 280px;
+            height: auto;
+        }
+
+        .intro-button:hover {
+            transform: scale(1.05);
+            filter: brightness(1.3);
+        }
+
+        /* --- Responsive สำหรับมือถือ --- */
+        @media (max-width: 850px) {
+            .grid-group {
+                flex-direction: column; /* สลับเป็นแนวตั้งบนมือถือ */
+                gap: 30px;
+                padding: 40px 20px;
+            }
+
+            .intro-image {
+                text-align: center;
+            }
+
+            .intro-image img {
+                max-height: 45vh;
+            }
+
+            .intro-button {
+                max-width: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body class="intro-page">
+
+    <img src="./Landing page_files/bg.png" class="intro-background" alt="Background">
+
+    <div class="grid-group">
+        
+        <div class="intro-image">
+            <img src="./Landing page_files/frame-6.png" alt="Royal Frame">
+        </div>
+
+        <div class="intro-content">
+            <img src="Landing page_files/text-4-768x517.png" class="intro-text" alt="ข้อความน้อมรำลึก">
+            
+            <audio controls autoplay loop>
+                <source src="Landing page_files/hm.mp3" type="audio/mpeg">
+                เบราว์เซอร์ของคุณไม่รองรับไฟล์เสียง
+            </audio>
+
+            <div class="intro-buttons">
+                <a href="home.html">
+                    <img src="./Landing page_files/เข้าสู่เว็บไซต์131068-768x250-1.png" class="intro-button" alt="เข้าสู่เว็บไซต์">
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
