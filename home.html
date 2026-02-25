@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE RED FREQUENCY | SYSTEM TERMINAL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ================= VARIABLES ================= */
+        :root {
+            --bg-void: #020202;
+            --bg-panel: rgba(10, 10, 10, 0.7);
+            --cyber-red: #FF003C;
+            --cyber-red-dim: rgba(255, 0, 60, 0.2);
+            --text-glow: #ffffff;
+            --text-dim: #888888;
+            --font-main: 'Prompt', sans-serif;
+        }
+        .text-red { color: var(--cyber-red); }
+        
+        /* ================= RESET & BASE ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        
+        html, body {
+            background-color: var(--bg-void); 
+            color: var(--text-glow);
+            font-family: var(--font-main); line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 0%, #3a0008 0%, var(--bg-void) 60%);
+            background-attachment: fixed;
+            /* เพิ่มคำสั่งบังคับตัดคำทั่วทั้งเว็บ */
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        /* -----------------------------------------------------------
+           🔥 พระเอกของการแก้ปัญหา: สร้างกล่องหุ้มเว็บทั้งหมดเพื่อตัดส่วนที่ล้น
+        ----------------------------------------------------------- */
+        .main-container {
+            overflow-x: hidden; 
+            width: 100%;
+            position: relative;
+        }
+
+        h1, h2, h3, h4 { font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+
+        /* ================= UTILITIES & BUTTONS ================= */
+        .cyber-btn {
+            display: inline-block; padding: 12px 30px; background: var(--cyber-red);
+            color: #fff; font-weight: 700; font-size: 1rem; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; position: relative; border: none;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: 0.3s;
+        }
+        .cyber-btn:hover { background: #fff; color: var(--cyber-red); box-shadow: 0 0 15px var(--cyber-red); }
+        .cyber-btn-outline {
+            background: rgba(255, 0, 60, 0.1); color: var(--cyber-red); border: 1px solid var(--cyber-red);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+        .cyber-btn-outline:hover { background: var(--cyber-red); color: #fff; }
+
+        .section-wrapper { padding: 100px 8% 50px; position: relative; z-index: 10; width: 100%; }
+        
+        .sys-header {
+            font-size: 2.5rem; color: #fff; margin-bottom: 50px;
+            text-shadow: 0 0 10px var(--cyber-red); border-bottom: 1px solid var(--cyber-red-dim);
+            padding-bottom: 10px; display: inline-block;
+        }
+        .sys-header::before { content: '>> '; color: var(--cyber-red); }
+
+        /* ================= NAVBAR ================= */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 8%;
+            background: rgba(2, 2, 2, 0.85); border-bottom: 1px solid var(--cyber-red);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; backdrop-filter: blur(8px);
+        }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 40px; width: auto; filter: drop-shadow(0 0 5px var(--cyber-red)); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 500; font-size: 0.9rem; letter-spacing: 1.5px; color: var(--text-dim); }
+        .nav-links a:hover { color: var(--cyber-red); text-shadow: 0 0 5px var(--cyber-red); }
+
+        /* ================= HERO ================= */
+        #hero {
+            height: 100vh; display: flex; flex-direction: column; justify-content: center;
+            padding: 0 8%; position: relative; z-index: 10;
+        }
+        .sys-status {
+            color: var(--cyber-red); font-size: 0.9rem; font-weight: 700; letter-spacing: 4px;
+            margin-bottom: 20px; display: flex; align-items: center; gap: 10px;
+        }
+        .sys-status::before {
+            content: ''; width: 10px; height: 10px; background: var(--cyber-red);
+            border-radius: 50%; box-shadow: 0 0 10px var(--cyber-red);
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1; margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255,0,60,0.5);
+        }
+        .hero-desc {
+            color: var(--text-dim); max-width: 600px; margin-bottom: 40px;
+            font-size: 1.1rem; border-left: 2px solid var(--cyber-red); padding-left: 15px;
+        }
+
+        /* ================= ABOUT ================= */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .terminal-box {
+            background: var(--bg-panel); border: 1px solid var(--cyber-red);
+            padding: 30px; position: relative; font-family: monospace;
+            backdrop-filter: blur(5px);
+        }
+        .terminal-box::before {
+            content: 'TERMINAL_OVERRIDE_ACTIVE'; position: absolute; top: -10px; left: 20px;
+            background: var(--bg-void); padding: 0 10px; color: var(--cyber-red); font-size: 0.8rem; font-weight: bold;
+        }
+        .terminal-text { color: var(--text-dim); font-size: 1.1rem; line-height: 1.8; font-family: var(--font-main); }
+        .terminal-text strong { color: #fff; text-shadow: 0 0 5px var(--text-glow); }
+        .terminal-text .highlight { color: var(--cyber-red); }
+        
+        .about-img {
+            width: 100%; max-width: 400px; height: auto;
+            display: block; margin: 0 auto; padding: 5px; 
+            background: var(--cyber-red-dim); border: 2px solid var(--bg-void); 
+            outline: 2px solid var(--cyber-red); outline-offset: -4px; 
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .about-img:hover {
+            transform: translateY(-5px) scale(1.03);
+            outline-color: #fff; box-shadow: 0 10px 20px -10px var(--cyber-red);
+        }
+
+        /* ================= MUSIC ================= */
+        .music-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .data-card {
+            background: var(--bg-panel); border: 1px solid var(--cyber-red-dim);
+            padding: 15px; position: relative; transition: 0.3s;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            backdrop-filter: blur(5px);
+        }
+        .data-card:hover { border-color: var(--cyber-red); box-shadow: 0 0 15px var(--cyber-red-dim); transform: translateY(-5px); }
+        .data-img-wrap { position: relative; margin-bottom: 15px; overflow: hidden; }
+        .data-img-wrap img { width: 100%; height: 250px; filter: contrast(1.2) sepia(0.3) hue-rotate(-20deg); transition: 0.5s; }
+        .data-card:hover .data-img-wrap img { transform: scale(1.05); filter: none; }
+        .data-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,0,60,0.2); display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.3s; backdrop-filter: blur(2px);
+        }
+        .data-card:hover .data-overlay { opacity: 1; }
+        .data-info h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; } 
+        .data-meta { color: var(--cyber-red); font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* ================= EVENTS ================= */
+        .coord-list { display: flex; flex-direction: column; gap: 15px; }
+        .coord-item {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--bg-panel); border-left: 3px solid var(--cyber-red);
+            padding: 20px 30px; transition: 0.3s; backdrop-filter: blur(5px);
+        }
+        .coord-item:hover { background: rgba(255,0,60,0.2); box-shadow: inset 0 0 10px rgba(255,0,60,0.2); }
+        .c-date { font-size: 1.5rem; font-weight: 900; color: var(--cyber-red); width: 120px; }
+        .c-details { flex: 1; }
+        .c-title { font-size: 1.2rem; color: #fff; margin-bottom: 5px; }
+        .c-loc { color: var(--text-dim); font-size: 0.9rem; font-family: monospace; }
+        .c-status { font-family: monospace; color: var(--text-dim); }
+
+        /* ================= NEWS ================= */
+        .log-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .log-card {
+            background: var(--bg-panel); border: 1px solid #222; border-top: 3px solid var(--cyber-red);
+            padding: 20px; transition: 0.3s; backdrop-filter: blur(5px);
+            text-decoration: none; display: block; 
+        }
+        .log-card:hover { border-color: var(--cyber-red); transform: translateY(-5px); }
+        .log-img { width: 100%; height: 160px; margin-bottom: 15px; filter: grayscale(80%); }
+        .log-id { font-family: monospace; color: var(--cyber-red); font-size: 0.8rem; margin-bottom: 10px; display: block; }
+        .log-title { font-size: 1.1rem; margin-bottom: 10px; color: #fff; line-height: 1.3; } 
+        .log-desc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.4; }
+
+        /* ================= CHAT SECTION ================= */
+        .chat-container {
+            width: 100%; max-width: 1000px; height: 500px; margin: 0 auto;
+            background: var(--bg-panel); border: 1px solid var(--cyber-red);
+            display: flex; flex-direction: column; backdrop-filter: blur(5px); position: relative;
+        }
+        .chat-header {
+            background: rgba(255, 0, 60, 0.1); border-bottom: 1px solid var(--cyber-red-dim);
+            padding: 10px 20px; font-family: monospace; color: var(--cyber-red);
+            font-size: 0.85rem; display: flex; justify-content: space-between; font-weight: bold;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            margin-top: 50px; padding: 60px 8% 30px;
+            background: rgba(2, 2, 2, 0.9); border-top: 2px solid var(--cyber-red);
+            text-align: center; position: relative; z-index: 10;
+        }
+        .f-logo-center { margin-bottom: 40px; display: flex; justify-content: center; }
+        .f-logo-center img { height: 25px; width: auto; filter: drop-shadow(0 0 8px var(--cyber-red)); }
+        .sys-end {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px dashed var(--cyber-red-dim); padding-top: 20px;
+            color: #666; font-family: monospace; font-size: 0.85rem; flex-wrap: wrap; gap: 15px;
+        }
+        .sys-end span.status { color: var(--cyber-red); }
+        .back-top { color: var(--text-dim); cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .back-top:hover { color: var(--cyber-red); text-shadow: 0 0 8px var(--cyber-red); }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1200px) {
+            .music-grid, .log-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid { grid-template-columns: 1fr; }
+            .coord-item { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .c-date { width: auto; }
+            .cyber-btn { align-self: flex-start; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            
+            .section-wrapper { padding: 80px 5% 40px; }
+            .hero-title { font-size: 2.2rem; }
+            
+            /* ลดขนาดลง และบีบคำยาวๆ ไม่ให้ล้นจอ */
+            .sys-header { font-size: 1.5rem; display: block; max-width: 100%; }
+            
+            /* ลดช่องไฟที่กว้างเกินไปบนมือถือ ป้องกันจอดัน */
+            .sys-status { flex-wrap: wrap; line-height: 1.4; letter-spacing: 1px; font-size: 0.8rem;}
+            
+            .terminal-box { padding: 20px 15px; }
+            .terminal-box::before { font-size: 0.65rem; top: -8px; left: 10px; max-width: 90%; }
+            
+            .music-grid, .log-grid { grid-template-columns: 1fr; }
+            .sys-end { flex-direction: column; text-align: center; justify-content: center; }
+            .chat-container { height: 450px; }
+        }    
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+
+    <nav>
+        <div class="logo">
+           <a href="home.html"><img src="assets/main_logo.png" alt="AOFZTIMUS Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="#about">CORE</a>
+            <a href="#music">AUDIO</a>
+            <a href="#events">TOUR</a>
+            <a href="#news">LOGS</a>
+            <a href="#chat">CHAT</a>
+        </div>
+    </nav>
+
+    <header id="hero">
+        <div class="sys-status">CONNECTION ESTABLISHED // SYSTEM ONLINE</div>
+        <h1 class="hero-title">THE NEW<br><span class="text-red">ERA</span> BEGins</h1>
+        <p class="hero-desc">STREAM THE NEW ALBUM NOW</p>
+        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+            <button class="cyber-btn">Audio</button>
+            <button class="cyber-btn cyber-btn-outline">ACCESS_EVENTS</button>
+        </div>
+    </header>
+
+    <section id="about" class="section-wrapper">
+        <h2 class="sys-header">CORE_DIRECTIVE</h2>
+        <div class="about-grid">
+            <div class="terminal-box">
+                <p class="terminal-text">
+                    > EXECUTING SCAN...<br>
+                    > MATCH FOUND: <strong>PRODUCER</strong><br><br>
+                    โปรดิวเซอร์และมือเบสผู้หลงใหลในดนตรีทุกแนวเพลง เขาเริ่มต้นเส้นทางดนตรีจากการสร้างสรรค์ผลงานในห้องนอน สู่การร่วมงานกับศิลปินมากมาย  ทำให้ผลงานของเขามีพลังและน่าจดจำ <span class="highlight">ด้วยซาวด์เบสที่เป็นเอกลักษณ์และการเรียบเรียงดนตรีที่หนักแน่น</span>
+                    ทำให้ผลงานของเขามีพลังและน่าจดจำ และพร้อมที่จะก้าวเข้าสู่การปฏิวัติทางเสียง.<br><br>
+                    > STATUS: <span class="highlight">READY FOR DEPLOYMENT</span>
+                </p>
+            </div>
+            <div>
+                <img src="assets/artist-profile.jpg" class="about-img" alt="Cyber Artist">
+            </div>
+        </div>
+    </section>
+
+    <section id="about2" class="section-wrapper">
+        <h2 class="sys-header">CORE_DIRECTIVE</h2>
+        <div class="about-grid">
+            <div class="terminal-box">
+                <p class="terminal-text">
+                    > EXECUTING SCAN...<br>
+                    > MATCH FOUND: <strong>ARTIST</strong><br><br>
+                    ศิลปินหน้าใหม่ที่มาพร้อมเสียงร้องใสๆ และแนวเพลงน่ารักสดชื่น เขาเริ่มต้นจากการแต่งเพลงเอง ก่อนจะกลายเป็นแรงบันดาลใจให้คนฟังด้วยท่วงทำนองอบอุ่นและเนื้อเพลงที่ชวนยิ้ม ทุกบทเพลงของเขาคือความสุขเล็กๆ ที่ฟังแล้วหัวใจเต้นตาม <span class="highlight">ทุกบทเพลงของเขาคือความสุขเล็กๆ</span>
+                    ฟังแล้วหัวใจเต้นตาม<br><br>
+                    > STATUS: <span class="highlight">READY FOR DEPLOYMENT</span>
+                </p>
+            </div>
+            <div>
+                <img src="assets/fha.jpg" class="about-img" alt="Cyber Artist">
+            </div>
+        </div>
+    </section>
+
+    <section id="music" class="section-wrapper">
+        <h2 class="sys-header">AUDIO_DATABANK</h2>
+        <div class="music-grid">
+            
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop" alt="Track 08">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[08] NEON BLOOD</h3>
+                    <div class="data-meta">SINGLE // 2027</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=500&auto=format&fit=crop" alt="Track 07">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[07] CYBERNETIC</h3>
+                    <div class="data-meta">EP // 2026</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&q=80&w=500" alt="Bloodline">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[06] BLOODLINE</h3>
+                    <div class="data-meta">SINGLE // 2026</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=500" alt="No Signal">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[05] NO SIGNAL</h3>
+                    <div class="data-meta">EP // 2025</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=500" alt="System Failure">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[04] SYSTEM Failure</h3>
+                    <div class="data-meta">ALBUM // 2024</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=500&auto=format&fit=crop" alt="Track 03">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[03] OVERRIDE</h3>
+                    <div class="data-meta">SINGLE // 2024</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=500&auto=format&fit=crop" alt="Track 02">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[02] NEUROMANCER</h3>
+                    <div class="data-meta">EP // 2023</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="https://images.unsplash.com/photo-1620063234978-2c1ebf95701a?q=80&w=500&auto=format&fit=crop" alt="Track 01">
+                    <div class="data-overlay">
+                        <button class="cyber-btn">PLAY</button>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>[01] INITIAL_BOOT</h3>
+                    <div class="data-meta">SINGLE // 2023</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="events" class="section-wrapper">
+        <h2 class="sys-header">TARGET_COORDINATES</h2>
+        <div class="coord-list">
+            <div class="coord-item" style="opacity: 0.6;">
+                <div class="c-date">14 FEB</div>
+                <div class="c-details">
+                    <h3 class="c-title" style="text-decoration: line-through;">Valentine Day</h3>
+                    <div class="c-loc">Bangkok,Thailand</div>
+                    <div class="c-status" style="color: var(--cyber-red);">[ERROR: CAPACITY EXCEEDED - SOLD OUT]</div>
+                </div>
+                <button class="cyber-btn" style="background: #333; color: #666; pointer-events: none;">ACCESS DENIED</button>
+            </div>
+            
+            <div class="coord-item">
+                <div class="c-date">20 MAR</div>
+                <div class="c-details">
+                    <h3 class="c-title">Anniversary 11 th Wedding</h3>
+                    <div class="c-loc">BangChan,Thailand</div>
+                </div>
+                <button class="cyber-btn">SECURE ACCESS</button>
+            </div>
+            
+            <div class="coord-item">
+                <div class="c-date">13 APR</div>
+                <div class="c-details">
+                    <h3 class="c-title">WATER WAR Festival</h3>
+                    <div class="c-loc">Bangkok,Thailand</div>
+                </div>
+                <button class="cyber-btn">SECURE ACCESS</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="section-wrapper">
+        <h2 class="sys-header">SYSTEM_LOGS</h2>
+        <div class="log-grid">
+            
+            <a href="new1.html" class="log-card">
+                <img src="https://img2.pic.in.th/9B11636A-106E-4C1D-98EC-BD333CC72ACA.png" class="log-img" alt="Tour Announcement">
+                <span class="log-id">LOG_ID: #0001 // TIMESTAMP: 25.02.2026</span>
+                <h3 class="log-title">“ชอบ (I like you)”</h3>
+                <p class="log-desc">ซิงเกิลใหม่สุดละมุน ชวนตั้งคำถามถึงความรู้สึกที่มากกว่าคนคุ้นเคย.</p>
+            </a>
+
+        </div>
+    </section>
+
+    <section id="chat" class="section-wrapper">
+        <h2 class="sys-header">SECURE_COMM_CHANNEL</h2>
+        <div class="chat-container">
+            <div class="chat-header">
+                <span>> SYS_ENCRYPTION_ACTIVE</span>
+                <span>GLOBAL_NETWORK</span>
+            </div>
+            <iframe src="https://www5.cbox.ws/box/?boxid=961523&boxtag=PUR9ga" 
+                    width="100%" 
+                    height="100%" 
+                    allowtransparency="yes" 
+                    allow="autoplay" 
+                    frameborder="0" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    scrolling="auto"
+                    style="display: block; border: none; flex: 1;">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="f-logo-center">
+            <img src="assets/main_logo.png" alt="AOFZTIMUS Logo">
+        </div>
+        <div class="sys-end">
+            <span class="status">[ SYSTEM_STATUS: SECURED ]</span>
+            <span>&copy; 2025 aOfztiMus ProMaxz. All Rights Reserved.</span>
+            <a href="#hero" class="back-top">[ ^ BACK TO TOP ]</a>
+        </div>
+    </footer>
+
+</div>
+</body>
+</html>
