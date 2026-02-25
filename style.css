@@ -1,0 +1,968 @@
+/* ========================
+   VARIABLES & RESET
+   ======================== */
+   :root {
+    --primary-color: #e50914; /* แดง Netflix/Rock */
+    --dark-bg: #121212;
+    --black-bg: #000000;
+    --text-color: #ffffff;
+    --gray-text: #b3b3b3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Kanit', sans-serif;
+    background-color: var(--black-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a { text-decoration: none; color: inherit; transition: 0.3s; }
+ul { list-style: none; }
+img { width: 100%; display: block; }
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-red { color: var(--primary-color); }
+.text-center { text-align: center; }
+.bg-dark { background-color: var(--dark-bg); }
+.bg-black { background-color: var(--black-bg); }
+
+/* ========================
+   BUTTONS
+   ======================== */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    letter-spacing: 1px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: 2px solid var(--primary-color);
+}
+.btn-primary:hover {
+    background-color: transparent;
+    color: var(--primary-color);
+}
+
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+}
+.btn-outline:hover {
+    background-color: #fff;
+    color: #000;
+    border-color: #fff;
+}
+
+/* ========================
+   NAVBAR
+   ======================== */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    
+    /* 👇 แก้บรรทัดนี้ครับ: สีดำโปร่งแสง 70% */
+    background: rgba(0, 0, 0, 0.7); 
+    
+    /* (ออปชั่นเสริม) ทำให้ฉากหลังเบลอๆ เหมือนกระจกฝ้า (Glassmorphism) ดูแพงขึ้น */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* สำหรับ Safari */
+
+    /* ปรับเส้นขอบให้จางลงด้วย (จะได้ไม่โดด) */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    padding: 20px 0;
+    z-index: 1000;
+    transition: 0.3s;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.nav-menu a:hover { color: var(--primary-color); }
+
+/* Mobile Menu */
+.hamburger { display: none; cursor: pointer; font-size: 1.5rem; }
+
+/* ========================
+   HERO SECTION
+   ======================== */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0,0,0, 0.6), rgba(0,0,0, 0.6)), url('assets/bg.jpg') no-repeat center center/cover;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), #000);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--gray-text);
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+.hero-btns { gap: 20px; display: flex; justify-content: center; }
+
+/* ========================
+   SECTIONS GENERAL
+   ======================== */
+.section { padding: 100px 0; }
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+/* ขีดเส้นใต้หัวข้อสีแดง */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    margin: 10px 0 0 0;
+}
+.text-center .section-title::after { margin: 10px auto 0 auto; }
+
+/* ========================
+   ABOUT
+   ======================== */
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+.about-img img {
+    border-radius: 10px;
+    box-shadow: -20px 20px 0 #4b4b4b;
+}
+
+/* ========================
+   MUSIC
+   ======================== */
+.music-grid {
+    display: grid;
+    
+    /* ✨ ใช้ auto-fill แทน auto-fit จะช่วยให้เรียงชิดซ้ายเสมอ แม้แถวจะไม่เต็ม */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+    
+    gap: 30px;
+    margin-top: 30px;
+}
+.music-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.music-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(229, 9, 20, 0.8); /* สีแดงโปร่งแสง */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+.music-card:hover .music-overlay { opacity: 1; }
+.music-overlay i { font-size: 3rem; margin-bottom: 10px; }
+
+/* ========================
+   EVENTS (List View)
+   ======================== */
+.tour-list { display: flex; flex-direction: column; gap: 20px; }
+.tour-row {
+    background: #1f1f1f;
+    padding: 25px 40px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid transparent;
+    transition: 0.3s;
+}
+.tour-row:hover {
+    background: #252525;
+    border-left: 5px solid var(--primary-color);
+    transform: translateX(10px);
+}
+.t-day { font-size: 2.5rem; font-weight: bold; line-height: 1; display: block; }
+.t-month { color: var(--primary-color); font-weight: bold; letter-spacing: 2px; }
+.t-event { font-size: 1.5rem; margin-bottom: 5px; }
+.t-location { color: var(--gray-text); font-size: 0.9rem; }
+
+/* ========================
+   NEWS (Grid)
+   ======================== */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.news-card {
+    background: #1f1f1f;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+.news-card:hover { transform: translateY(-10px); }
+.news-img-box { position: relative; height: 200px; }
+.news-img-box img { width: 100%; height: 100%; object-fit: cover; }
+.news-date {
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.news-content { padding: 20px; }
+.news-content h3 { font-size: 1.2rem; margin-bottom: 10px; }
+.news-content p { color: var(--gray-text); font-size: 0.9rem; margin-bottom: 20px; }
+.read-more { color: var(--primary-color); font-weight: bold; font-size: 0.9rem; }
+
+/* ========================
+   FOOTER
+   ======================== */
+.footer { padding: 50px 0; background: #0a0a0a; border-top: 1px solid #222; }
+.social-links { margin-bottom: 20px; }
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; height: 40px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    margin: 0 10px;
+    color: #fff;
+}
+.social-links a:hover { background: var(--primary-color); border-color: var(--primary-color); }
+
+/* ========================
+   RESPONSIVE (MOBILE)
+   ======================== */
+@media (max-width: 768px) {
+}
+    .nav-menu {
+        position: fixed;
+        right: -100%; top: 0;
+        flex-direction: column;
+        background: #000;
+        width: 100%; height: 100vh;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+    }
+    .nav-menu.active { right: 0; }
+    .hamburger { display: block; z-index: 1001; }
+    
+    .hero-title { font-size: 2.5rem; }
+    .hero-btns { flex-direction: column; }
+    
+    .about-container { grid-template-columns: 1fr; }
+    .about-img { order: 1; } /* รูปอยู่บน */
+    .about-text { order: 2; text-align: center; }
+    
+    .news-grid { grid-template-columns: 1fr; }
+    
+    .tour-row {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    .tour-date-col { border-left: none; border-bottom: 1px solid #333; padding-bottom: 10px; width: 100%; }
+    .btn-sm { width: 100%; display: block; text-align: center;}
+
+    .logo img {
+    width: 300px; /* ปรับตัวเลขความกว้างตามต้องการ */
+    }
+    .hamburger {
+        font-size: 1.3rem; 
+    }
+    .navbar {
+        padding: 15px 0;
+    }
+/* หน้าข่าวนะ */
+/* ========================
+   ARTICLE PAGE STYLES
+   ======================== */
+
+/* ส่วนหัว (Header) แบบสั้น */
+.article-header-bg {
+    height: 40vh; /* สูงแค่ 40% ของจอ */
+    background: url('https://placehold.co/1920x600/111/333?text=News+Update') no-repeat center center/cover;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.relative { position: relative; }
+.z-1 { z-index: 1; }
+
+/* ปุ่มย้อนกลับ */
+.btn-back {
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+}
+.btn-back:hover { color: var(--primary-color); }
+
+/* กล่องเนื้อหา */
+.article-container {
+    max-width: 800px; /* บีบเนื้อหาไม่ให้กว้างเกินไป จะได้อ่านง่าย */
+    margin: 0 auto;
+}
+
+.article-head { margin-bottom: 30px; }
+.article-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 10px;
+    line-height: 1.2;
+    color: #fff;
+}
+.text-gray { color: #888; }
+.ml-2 { margin-left: 10px; }
+
+/* รูปภาพหลักในเนื้อหา */
+.article-image-full {
+    width: 100%;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.article-image-full img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* เนื้อหาข่าว (Typography) */
+.article-body-text {
+    font-size: 1.1rem;
+    color: #d1d1d1; /* สีเทาอ่อน อ่านสบายตากว่าขาวล้วน */
+    line-height: 1.8;
+}
+.article-body-text p { margin-bottom: 20px; }
+.article-body-text h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin: 30px 0 15px 0;
+}
+
+/* ส่วนแชร์ด้านล่าง */
+.article-share {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #333;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.article-share span { font-weight: bold; color: #fff; }
+.article-share a {
+    width: 40px; height: 40px;
+    background: #222;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+.article-share a:hover { background: var(--primary-color); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .article-main-title { font-size: 1.8rem; }
+    .article-header-bg { height: 0vh; }
+}
+/* ========================
+   แก้ปัญหาข้อความจม (Z-Index Fix)
+   ======================== */
+
+/* 1. ดันปุ่ม Back และเนื้อหาใน Header ขึ้นมาข้างหน้า */
+.article-header-bg .container {
+    position: relative; /* ต้องมีบรรทัดนี้ z-index ถึงจะทำงาน */
+    z-index: 10;        /* เลขเยอะกว่า BG (ปกติ BG คือ 0 หรือ 1) */
+}
+
+/* 2. ดันเนื้อหาข่าว (Category, Date, Title) ขึ้นมาข้างหน้า */
+.article-section {
+    position: relative;
+    z-index: 10;
+    background-color: var(--black-bg); /* ใส่สีพื้นหลังให้ทึบ กันทะลุ */
+}
+
+/* 3. เช็คตัว Overlay (เงาดำ) ให้มั่นใจว่าอยู่ข้างหลัง */
+.hero-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* เลขน้อยกว่าเนื้อหา */
+}    
+.music-link-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10; /* ✨ สั่งให้ลอยอยู่บนสุด เพื่อรับการคลิก */
+    cursor: pointer;
+}
+
+/* ปรับ Overlay ให้มั่นใจว่าเนื้อหาข้างในคลิกผ่านได้ */
+.music-overlay {
+    position: absolute; /* (ของเดิม) */
+    /* ...ค่าอื่นๆ ของเดิม... */
+    
+    /* 👇 เพิ่มบรรทัดนี้ เพื่อให้แน่ใจว่า Overlay เป็นฐานให้ลิงก์เกาะ */
+    z-index: 5; 
+}
+/* ========================
+   📄 PRO ARTICLE PAGE DESIGN
+   ======================== */
+
+.article-page {
+    background-color: #050505; /* พื้นหลังดำเกือบสนิท */
+}
+
+/* 1. Hero Header (ส่วนหัวอลังการ) */
+.article-hero {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    
+    /* 👇 1. เปลี่ยนการจัดวาง (ถ้าอยากให้อยู่กลางจอ หรือบน) */
+    /* เดิมอาจจะเป็น flex-end (ล่างสุด) ถ้าอยากให้อยู่บนแต่ไม่โดนบัง ให้ใช้ center หรือ flex-start */
+    align-items: center; /* แนะนำ: จัดกึ่งกลางแนวตั้ง */
+    
+    /* 👇 2. เพิ่ม Padding ด้านบน เพื่อดันเนื้อหาหนี Navbar */
+    padding-top: 100px; /* ใส่เลขนี้ให้มากกว่าความสูง Navbar (ปกติ Navbar สูง 60-80px) */
+    
+    padding-bottom: 60px;
+    box-sizing: border-box; /* สำคัญ: เพื่อไม่ให้ Padding ไปเพิ่มความสูงรวมจนเพี้ยน */
+}
+
+/* รูปพื้นหลังแบบเต็มจอ */
+.hero-bg-img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* ไล่สีดำจากล่างขึ้นบน (เพื่อให้ตัวหนังสือชัด) */
+.hero-overlay-gradient {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(5,5,5,1) 90%); /* ไล่จนเป็นสีเดียวกับพื้นหลังเว็บ */
+    z-index: 1;
+}
+
+.hero-content-box {
+    position: relative;
+    z-index: 10;
+    max-width: 900px; /* บีบความกว้างไม่ให้เต็มจอเกินไป */
+    margin: 0 auto;   /* จัดกึ่งกลาง */
+}
+
+/* ปุ่มย้อนกลับเล็กๆ */
+.back-link {
+    display: inline-block;
+    color: #bbb;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.back-link:hover { color: var(--primary-color); }
+
+/* Category Badge */
+.cat-badge {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.date-text {
+    color: #ccc;
+    font-size: 0.95rem;
+    vertical-align: middle;
+}
+
+/* หัวข้อข่าวใหญ่บึ้ม */
+.big-title {
+    font-size: 3.5rem; /* ใหญ่สะใจ */
+    font-weight: 700;
+    line-height: 1.1;
+    margin-top: 15px;
+    color: #fff;
+    text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+/* 2. Content Body (เนื้อหา) */
+.article-body-section {
+    padding-top: 0; /* ติดกับ Hero เลย */
+}
+
+.content-wrapper {
+    max-width: 800px; /* ความกว้างที่สายตามนุษย์อ่านง่ายที่สุด (Measure) */
+    margin: 0 auto;
+}
+
+.article-text {
+    font-size: 1.25rem; /* ตัวหนังสือใหญ่อ่านสบาย */
+    line-height: 1.8;   /* ระยะบรรทัดห่างพอดี */
+    color: #d1d1d1;     /* สีขาวหม่น อ่านแล้วไม่ปวดตา */
+}
+
+/* ตกแต่งย่อหน้าและหัวข้อย่อย */
+.article-text p { margin-bottom: 25px; }
+.article-text h2, .article-text h3 {
+    color: #fff;
+    margin: 40px 0 20px 0;
+    font-weight: 600;
+}
+.article-text ul { margin-bottom: 25px; padding-left: 20px; }
+
+/* Drop cap (ตัวอักษรแรกตัวใหญ่ เหมือนนิตยสาร) - Optional */
+.article-text p:first-child::first-letter {
+    font-size: 3.5rem;
+    float: left;
+    margin-right: 10px;
+    line-height: 0.8;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* 3. Share & Navigation */
+.share-area {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #888;
+    font-weight: bold;
+}
+.share-icons a {
+    width: 40px; height: 40px;
+    border: 1px solid #333;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    transition: 0.3s;
+}
+.share-icons a:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 40px 0;
+}
+
+.post-navigation { text-align: center; }
+
+/* 📱 Responsive Mobile */
+@media (max-width: 768px) {
+    .article-hero { height: 50vh; }
+    .big-title { font-size: 2rem; }
+    .article-text { font-size: 1.1rem; }
+}
+/* เพิ่มใน style.css */
+.hero-content-box {
+    /* ...ค่าเดิม... */
+    
+    /* กันไม่ให้เนื้อหาชนขอบบนเกินไป */
+    margin-top: 100px; 
+}
+/* ========================
+   💎 CINEMATIC ARTICLE DESIGN
+   (วางทับของเดิมตั้งแต่บรรทัดนี้ลงไปจนจบไฟล์ครับ)
+   ======================== */
+
+.cinematic-article {
+    background-color: #050505; /* ดำสนิท */
+    color: #e0e0e0;
+}
+
+/* 1. Header แบบเต็มจอ */
+.cinematic-header {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 80px;
+}
+
+/* รูปพื้นหลัง */
+.header-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url('https://placehold.co/1920x1080/111/333?text=Cover'); 
+    z-index: 0;
+}
+
+/* เงาดำไล่เฉด */
+.header-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(5,5,5,0.8) 70%, rgba(5,5,5,1) 100%);
+    z-index: 1;
+}
+
+.header-content {
+    position: relative;
+    z-index: 10;
+    max-width: 900px;
+}
+
+/* Typography ส่วนหัว */
+.meta-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* ✨ ปุ่ม UPDATE สีแดง (แก้แล้ว) */
+.badge-neon {
+    display: inline-block;       /* ✅ สำคัญมาก: ต้องมีบรรทัดนี้ปุ่มถึงจะเป็นทรง */
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 6px 18px;           /* ขยายความอ้วนของปุ่ม */
+    border-radius: 50px;         /* ทรงแคปซูล */
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(229, 9, 20, 0.5); /* เรืองแสง */
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.badge-neon:hover {
+    background-color: transparent;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: none;
+    cursor: default;
+}
+
+.date-light {
+    display: inline-block;       /* สำคัญ: ต้องใส่เพื่อให้จัดทรงได้ */
+    background-color: #333333;   /* สีพื้นหลังเทาเข้ม */
+    color: #e0e0e0;              /* ตัวหนังสือสีขาวหม่น */
+    
+    padding: 6px 15px;           /* ความอ้วนของปุ่ม */
+    border-radius: 8px;          /* ความมน (8px คือสี่เหลี่ยมมนๆ กำลังดี) */
+    
+    font-size: 0.9rem;           /* ขนาดตัวหนังสือ */
+    font-weight: 500;            /* ความหนาปานกลาง */
+    letter-spacing: 0.5px;       /* ระยะห่างตัวอักษร */
+    margin-left: 10px;           /* เว้นระยะห่างจากปุ่มแดงด้านซ้าย */
+    vertical-align: middle;      /* จัดให้อยู่กึ่งกลางบรรทัดเดียวกับปุ่มแดง */
+}
+
+.title-huge {
+    position: relative !important;
+    z-index: 100 !important;      /* ดันขึ้นมาบนสุด */
+    color: #ffffff !important;    /* บังคับสีขาว */
+    display: block !important;    /* บังคับให้แสดงผล */
+    opacity: 1 !important;        /* แก้เผื่อ Animation ไปซ่อนมันไว้ */
+    visibility: visible !important;
+    
+    /* สไตล์เดิม */
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-shadow: 0 5px 30px rgba(0,0,0,0.8);
+}
+
+/* 2. Content Box */
+.header-content {
+    position: relative !important;
+    z-index: 50 !important;
+}
+
+.content-box {
+    background: #121212;
+    padding: 60px;
+    max-width: 900px;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
+}
+
+.article-typography p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ccc;
+    margin-bottom: 25px;
+}
+
+.article-typography p:first-child::first-letter {
+    font-size: 4rem;
+    float: left;
+    margin-right: 15px;
+    line-height: 0.8;
+    color: var(--primary-color);
+    font-weight: 800;
+}
+
+.article-typography img {
+    width: 100%;
+    border-radius: 10px;
+    margin: 30px 0;
+    border: 1px solid #333;
+}
+
+/* ส่วนท้าย */
+.article-footer-share {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #333;
+    text-align: center;
+}
+
+.article-footer-share p {
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.share-btns { display: flex; justify-content: center; gap: 20px; margin-bottom: 40px; }
+.share-btns a {
+    width: 50px; height: 50px;
+    border: 1px solid #444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #fff;
+    transition: 0.3s;
+}
+.share-btns a:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+/* ปรับแต่งเมนู Shoutbox ให้เด่นขึ้นเล็กน้อย (ตัวเลือกเสริม) */
+.nav-menu li a[href="#shoutbox"] {
+    color: var(--text-red, #ff0000); /* หรือสีที่คุณต้องการ */
+    font-weight: 600;
+}
+
+/* ปรับระยะห่างของ Section Shoutbox */
+#shoutbox {
+    padding: 80px 0;
+}
+
+.shoutbox-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+/* เลือกที่ตัวครอบ iframe (ถ้ามี class เช่น shoutbox-wrapper) */
+.shoutbox-wrapper {
+    padding: 0; /* ลบช่องว่างภายในกรอบออก */
+    overflow: hidden; /* ป้องกันส่วนเกินล้นขอบ */
+    line-height: 0; /* ลบช่องว่างจิ๋วใต้ iframe */
+    /* --- ส่วนที่ทำให้โค้งมน --- */
+    border-radius: 15px;      /* ปรับความโค้งตามต้องการ (เช่น 20px หรือ 30px) */
+    overflow: hidden;         /* สำคัญมาก: เพื่อตัดขอบ iframe ที่เป็นเหลี่ยมให้โค้งตามกรอบ */
+}
+
+.shoutbox-wrapper iframe {
+    display: block; /* ทำให้ iframe ทำตัวเป็นกล่องที่ถมพื้นที่เต็ม */
+    border: none;
+}
+<<<<<<< HEAD
+html {
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #000; 
+}
+::-webkit-scrollbar-thumb {
+    background: #333; 
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff0000; /* สีแดงเมื่อเอาเมาส์วาง ตามโทนเว็บคุณ */
+}
+=======
+
+>>>>>>> 968e288a68d30ed89b609754ea3741d1d30c2a6d
+
+/* ========================
+   📱 แก้ไขเฉพาะมือถือ (Mobile Fix) - แบบกระชับ เรียงต่อกัน
+   ======================== */
+@media (max-width: 768px) {
+
+    /* 1. ล้างค่าเดิม จัดเรียงใหม่แบบ Flex แนวตั้ง (บนลงล่าง) */
+    .cinematic-header {
+        display: flex !important;
+        flex-direction: column !important;
+        height: auto !important;        /* ความสูงยืดหดตามของข้างใน */
+        padding-top: 60px !important;   /* เว้นที่ให้ Navbar ด้านบนนิดเดียวพอ */
+        padding-bottom: 0 !important;
+        background: #050505 !important; /* พื้นหลังดำ */
+    }
+
+    /* 2. แปลงร่าง "รูปพื้นหลัง" ให้เป็น "รูปแบนเนอร์" อยู่บนสุด */
+    .header-bg {
+        position: relative !important;  /* เลิกเป็น Background ลอยๆ */
+        width: 100% !important;
+        height: 250px !important;       /* กำหนดความสูงรูปให้พอดีคำ (ไม่เยอะไป) */
+        background-size: cover !important;
+        background-position: center top !important;
+        order: 1;                       /* สั่งให้รูปอยู่ลำดับที่ 1 */
+        z-index: 1 !important;
+    }
+
+    /* 3. ส่วนข้อความ (ปุ่มแดง + ชื่อเรื่อง) ให้เรียงต่อลงมา */
+    .header-content {
+        order: 2;                       /* สั่งให้อยู่ลำดับที่ 2 (ใต้รูป) */
+        margin-top: 0 !important;       /* ❌ ลบระยะห่างสีดำมหาศาลทิ้งไปซะ */
+        padding: 20px !important;       /* เว้นขอบนิดหน่อย */
+        width: 100% !important;
+        background: #050505 !important; /* พื้นหลังดำ */
+        z-index: 10 !important;
+    }
+
+    /* 4. ปรับปุ่มต่างๆ */
+    .meta-wrapper {
+        display: flex !important;
+        flex-direction: row !important; /* เรียงปุ่มแนวนอน */
+        justify-content: flex-start !important;
+        gap: 10px !important;
+        margin-bottom: 10px !important;
+    }
+    
+    /* 5. ปรับชื่อเรื่อง */
+    .title-huge {
+        font-size: 1.8rem !important;   /* ลดขนาดตัวหนังสือลงหน่อย */
+        line-height: 1.3;
+        margin-top: 0 !important;
+        text-shadow: none !important;   /* ไม่ต้องมีเงาแล้ว เพราะพื้นหลังดำ */
+    }
+
+    /* (แถม) ซ่อนเงา Overlay ดำๆ ทิ้งไปเลย จะได้ไม่รก */
+    .header-overlay { display: none !important; }
+    
+    /* จัดการส่วนเนื้อหาข่าวล่างสุด */
+    .content-section {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    .content-box {
+        padding: 0 20px 40px 20px !important;
+        box-shadow: none !important;
+    }
+    /* 👇 แก้ตรงนี้: สั่งให้ปุ่มเรียงเป็นแนวตั้ง */
+    .meta-wrapper {
+        display: flex !important;
+        flex-direction: column !important;  /* เรียงจากบนลงล่าง */
+        align-items: flex-start !important; /* จัดชิดซ้าย */
+        gap: 10px !important;               /* เว้นระยะห่างระหว่างปุ่ม */
+        margin-bottom: 15px !important;
+    }
+
+    /* 👇 ปรับปุ่มสีเทา */
+    .date-light {
+        margin-left: 0 !important; /* ลบระยะห่างซ้ายออก (เพราะอยู่คนละบรรทัดแล้ว) */
+        margin-top: 0 !important;
+    }
+}
