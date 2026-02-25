@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[ANNOUNCE] ASIA TOUR 2027 | THE RED FREQUENCY</title>
+    
+    <meta property="og:title" content="[ANNOUNCE] ASIA TOUR 2027 | THE RED FREQUENCY" />
+    <meta property="og:description" content="เตรียมพิกัดรับความบ้าคลั่ง ทัวร์คอนเสิร์ตใหญ่กำลังจะเริ่มขึ้นทั่วเอเชียในปีหน้า." />
+    <meta property="og:image" content="https://img2.pic.in.th/9B11636A-106E-4C1D-98EC-BD333CC72ACA.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ================= VARIABLES ================= */
+        :root {
+            --bg-void: #020202;
+            --bg-panel: rgba(10, 10, 10, 0.7);
+            --cyber-red: #FF003C;
+            --cyber-red-dim: rgba(255, 0, 60, 0.2);
+            --text-glow: #ffffff;
+            --text-dim: #888888;
+            --font-main: 'Prompt', sans-serif;
+        }
+
+        /* ================= RESET & BASE ================= */
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-void); 
+            color: var(--text-glow);
+            font-family: var(--font-main); line-height: 1.6; overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #3a0008 0%, var(--bg-void) 60%);
+            background-attachment: fixed;
+        }
+
+        h1, h2, h3, h4 { font-weight: 900; letter-spacing: 2px; text-transform: uppercase; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; display: block; object-fit: cover; }
+
+        /* ================= UTILITIES & BUTTONS ================= */
+        .cyber-btn {
+            display: inline-block; padding: 12px 30px; background: var(--cyber-red);
+            color: #fff; font-weight: 700; font-size: 1rem; text-transform: uppercase;
+            letter-spacing: 2px; cursor: pointer; position: relative; border: none;
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            transition: 0.3s;
+        }
+        .cyber-btn:hover { background: #fff; color: var(--cyber-red); box-shadow: 0 0 15px var(--cyber-red); }
+        .cyber-btn-outline {
+            background: rgba(255, 0, 60, 0.1); color: var(--cyber-red); border: 1px solid var(--cyber-red);
+            clip-path: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+        }
+        .cyber-btn-outline:hover { background: var(--cyber-red); color: #fff; }
+
+        /* ================= NAVBAR ================= */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 8%;
+            background: rgba(2, 2, 2, 0.85); border-bottom: 1px solid var(--cyber-red);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; backdrop-filter: blur(8px);
+        }
+        .logo { display: flex; align-items: center; }
+        .logo img { height: 40px; width: auto; filter: drop-shadow(0 0 5px var(--cyber-red)); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 500; font-size: 0.9rem; letter-spacing: 1.5px; color: var(--text-dim); }
+        .nav-links a:hover { color: var(--cyber-red); text-shadow: 0 0 5px var(--cyber-red); }
+
+        /* ================= ARTICLE SECTION ================= */
+        .article-wrapper {
+            max-width: 900px;
+            margin: 120px auto 50px;
+            padding: 40px;
+            background: var(--bg-panel);
+            border: 1px solid var(--cyber-red-dim);
+            backdrop-filter: blur(5px);
+            position: relative;
+            clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+        }
+
+        .article-wrapper::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 30px; height: 3px; background: var(--cyber-red);
+        }
+
+        .breadcrumb {
+            font-family: monospace; color: var(--cyber-red); font-size: 0.9rem;
+            margin-bottom: 20px; display: flex; gap: 10px; align-items: center;
+        }
+        .breadcrumb a:hover { color: #fff; text-shadow: 0 0 5px var(--cyber-red); }
+
+        .article-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.2; margin-bottom: 15px; color: #fff;
+            text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+        }
+
+        .article-meta {
+            font-family: monospace; font-size: 0.85rem; color: var(--text-dim);
+            border-bottom: 1px dashed var(--cyber-red-dim); padding-bottom: 20px; margin-bottom: 30px;
+            display: flex; gap: 20px; flex-wrap: wrap;
+        }
+        .article-meta span { color: var(--cyber-red); }
+
+        /* รูปภาพประกอบข่าว */
+        .article-hero-img {
+            width: 100%; height: auto; max-height: 450px;
+            border: 1px solid var(--cyber-red);
+            margin-bottom: 40px;
+            /* ผมปรับ filter ให้อ่อนลงเล็กน้อย เพื่อให้สีของภาพกราฟิกของคุณยังคงความสดใสอยู่ครับ */
+            filter: contrast(1.1); 
+        }
+
+        .article-content {
+            font-size: 1.1rem; color: var(--text-dim); line-height: 1.8;
+        }
+        .article-content p { margin-bottom: 20px; }
+        .article-content strong { color: #fff; font-weight: 700; }
+        .article-content .highlight { color: var(--cyber-red); }
+
+        .article-content blockquote {
+            background: rgba(255, 0, 60, 0.05);
+            border-left: 4px solid var(--cyber-red);
+            padding: 20px; margin: 30px 0;
+            font-family: monospace; font-size: 1rem; color: #fff;
+        }
+
+        .article-footer {
+            margin-top: 50px; padding-top: 30px; border-top: 1px solid var(--cyber-red-dim);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            margin-top: 50px; padding: 60px 8% 30px;
+            background: rgba(2, 2, 2, 0.9); border-top: 2px solid var(--cyber-red);
+            text-align: center; position: relative; z-index: 10;
+        }
+        .f-logo-center { margin-bottom: 40px; display: flex; justify-content: center; }
+        .f-logo-center img { height: 40px; width: auto; filter: drop-shadow(0 0 8px var(--cyber-red)); }
+        .sys-end {
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px dashed var(--cyber-red-dim); padding-top: 20px;
+            color: #666; font-family: monospace; font-size: 0.85rem; flex-wrap: wrap; gap: 15px;
+        }
+        .sys-end span.status { color: var(--cyber-red); }
+        .back-top { color: var(--text-dim); cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .back-top:hover { color: var(--cyber-red); text-shadow: 0 0 8px var(--cyber-red); }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            nav { padding: 15px 5%; flex-direction: column; gap: 15px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            
+            .article-wrapper {
+                margin: 140px 5% 40px; 
+                padding: 25px;
+                clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+            }
+            .article-meta { flex-direction: column; gap: 5px; }
+            .article-content { font-size: 1rem; }
+            .article-footer { flex-direction: column; gap: 20px; }
+            
+            .sys-end { flex-direction: column; text-align: center; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="home.html"><img src="assets/main_logo.png" alt="AOFZTIMUS Logo"></a>
+        </div>
+        <div class="nav-links">
+            <a href="home.html#about">CORE</a>
+            <a href="home.html#music">AUDIO</a>
+            <a href="home.html#events">TOUR</a>
+            <a href="home.html#news">LOGS</a>
+            <a href="home.html#chat">CHAT</a>
+        </div>
+    </nav>
+
+    <main class="article-wrapper">
+        
+        <div class="breadcrumb">
+            >> <a href="index.html#news">SYSTEM_LOGS</a> / DECRYPTED_FILE
+        </div>
+
+        <h1 class="article-title">ชอบ (I like you)</h1>
+        <div class="article-meta">
+            <div>LOG_ID: <span>#0001</span></div>
+            <div>TIMESTAMP: <span>25.02.2026 14:00 THA</span></div>
+            <div>SECURITY: <span>PUBLIC_ACCESS</span></div>
+        </div>
+
+        <img src="https://img2.pic.in.th/9B11636A-106E-4C1D-98EC-BD333CC72ACA.png" alt="Asia Tour 2027" class="article-hero-img">
+
+        <div class="article-content">
+            <p><strong>ระบบพร้อมรบ!</strong> เตรียมตัวรับแรงกระแทกจากคลื่นความถี่สีแดง เพราะการรอคอยสิ้นสุดลงแล้ว THE RED FREQUENCY กำลังจะขยายอาณาเขตความมันส์ข้ามพรมแดนกับคอนเสิร์ตใหญ่เต็มรูปแบบ เตรียมพบกับผลงานเพลงใหม่ล่าสุด “ชอบ (I like you)” บทเพลงที่ถ่ายทอดความรู้สึกของคนที่เริ่มไม่แน่ใจในความใกล้ชิด เมื่อคนที่เจอกันบ่อย ๆ กลับทำให้หัวใจเต้นแรงเกินกว่าจะเป็นแค่คนรู้จัก เพลงนี้มาพร้อมกับดนตรีฟังสบายสไตล์ Chillnrelax ที่ดูแลในส่วนของบีท (Beat) และได้ aofztimus มาเติมเต็มความสมบูรณ์ในขั้นตอน Mix & Mastering เพื่อให้ได้คุณภาพเสียงที่นุ่มนวลชวนฝัน<strong>“ชอบ (I like you)”</strong></p>
+
+            <p>หลังจากความสำเร็จของการปล่อยซิงเกิล <span class="highlight">“ชอบ (I like you)”</span> ที่ทะยานขึ้นสู่อันดับหนึ่งในชาร์ต Underground ทั่วภูมิภาค เราตัดสินใจปลดล็อคแผนที่พิกัดใหม่ เพื่อนำพาดนตรีไปเผชิญหน้ากับพวกคุณแบบไร้ข้อจำกัด</p>
+
+            <blockquote>
+                > INTERCEPTED_MESSAGE: <br>
+                "นี่ไม่ใช่ทัวร์คอนเสิร์ตธรรมดา แต่มันคือการอัปเกรดระบบโสตประสาทของทุกคนที่เข้าร่วม เราเตรียมโปรดักชั่นที่ดุดันที่สุดเท่าที่เคยทำมา เพื่อให้ทุกคนได้จมดิ่งไปกับพวกเรา" - <span style="color: var(--text-dim);">[CORE_MEMBER]</span>
+            </blockquote>
+            <img src='https://img5.pic.in.th/file/secure-sv1/5B349DA3-F317-4D83-AEF7-17AFFAB4FB23.png' alt='ภาพประกอบเว็บใหม่' style='width:100%; border-radius: 0px; margin: 15px 0;'>
+            <p>เนื้อหาของเพลงเน้นย้ำถึงช่วงเวลาที่ความรู้สึกพุ่งไปไกลเกินจะเก็บไว้ จนถึงเวลาที่ต้องรวบรวมความกล้าเพื่อเข้าไปบอกความในใจตรง ๆ โดยมีท่อนฮุคที่หวานซึ้งอย่างการขอเข้าไปนั่งใกล้ ๆ และประกาศความในใจเพื่อหวังจะได้เป็นแฟนกันตลอดไป ใครที่กำลังตกอยู่ในสถานการณ์ “แอบรักคนใกล้ตัว” ห้ามพลาดซิงเกิลนี้ เพราะนี่อาจเป็นเพลงที่จะช่วยให้คุณกล้าเผยความรู้สึกที่ซ่อนไว้ออกมาให้เขารู้เสียที พิกัดแรกที่จะได้รับการปลดล็อคได้แก่ <span class="highlight">โตเกียว, โซล, มะนิลา และไทเป</span> ก่อนจะมาปิดท้ายที่ <strong>กรุงเทพมหานคร</strong> ในฐานะ Mainframe หลักของทัวร์ครั้งนี้</p>
+
+            <p>สำหรับข้อมูลการจำหน่ายบัตรจะถูกส่งเข้าสู่ระบบในวันที่ <strong>1 พฤศจิกายน 2026</strong> สมาชิกที่ลงทะเบียนรับข่าวสาร (Subscribers) จะได้รับรหัส Early Access ก่อนใคร</p>
+
+            <p>เตรียมตัวให้พร้อม ระบบกำลังจะโอเวอร์โหลด...</p>
+        </div>
+
+        <div class="article-footer">
+            <a href="home.html#news" class="cyber-btn cyber-btn-outline">RETURN TO LOGS</a>
+            <div style="font-family: monospace; color: var(--cyber-red); font-size: 0.85rem;">END_OF_FILE.</div>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="f-logo-center">
+            <img src="assets/main_logo.png" alt="AOFZTIMUS Logo">
+        </div>
+        <div class="sys-end">
+            <span class="status">[ SYSTEM_STATUS: SECURED ]</span>
+            <span>&copy; 2025 aOfztiMus ProMaxz. All Rights Reserved.</span>
+            <a href="#" class="back-top">[ ^ BACK TO TOP ]</a>
+        </div>
+    </footer>
+
+</body>
+</html>
