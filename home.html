@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>THE RED FREQUENCY | SYSTEM TERMINAL</title>
+    <title>aOfztiMus | ProMaxz</title>
     <link rel="icon" href="assets/favicon.png" type="image/png" sizes="32x32">
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <style>
@@ -146,12 +146,30 @@
         }
         .data-card:hover { border-color: var(--cyber-red); box-shadow: 0 0 15px var(--cyber-red-dim); transform: translateY(-5px); }
         .data-img-wrap { position: relative; margin-bottom: 15px; overflow: hidden; }
-        .data-img-wrap img { width: 100%; height: 250px; filter: contrast(1.2) sepia(0.3) hue-rotate(-20deg); transition: 0.5s; }
+        .data-img-wrap img { width: 100%; height: auto; aspect-ratio: 1/1; filter: contrast(1.2) sepia(0.3) hue-rotate(-20deg); transition: 0.5s; }
         .data-card:hover .data-img-wrap img { transform: scale(1.05); filter: none; }
+        /* ================= แก้ไข .data-overlay ของเดิมให้เป็นแบบนี้ ================= */
         .data-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,0,60,0.2); display: flex; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.3s; backdrop-filter: blur(2px);
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0;
+            width: 100%; 
+            height: 100%;
+            background: rgba(255,0,60,0.2); 
+            opacity: 0; 
+            transition: 0.3s; 
+            backdrop-filter: blur(2px);
+        }
+
+        /* เพิ่มคลาสนี้เข้าไป เพื่อล็อคปุ่ม Play ให้อยู่กึ่งกลางเป๊ะๆ ในทุกหน้าจอ */
+        .data-overlay .cyber-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: 0;
         }
         .data-card:hover .data-overlay { opacity: 1; }
         .data-info h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; } 
@@ -179,7 +197,7 @@
             text-decoration: none; display: block; 
         }
         .log-card:hover { border-color: var(--cyber-red); transform: translateY(-5px); }
-        .log-img { width: 100%; height: 160px; margin-bottom: 15px; filter: grayscale(80%); }
+        .log-img { width: 100%; height: auto; aspect-ratio: 2/1; object-fit: cover; margin-bottom: 15px; }
         .log-id { font-family: monospace; color: var(--cyber-red); font-size: 0.8rem; margin-bottom: 10px; display: block; }
         .log-title { font-size: 1.1rem; margin-bottom: 10px; color: #fff; line-height: 1.3; } 
         .log-desc { color: var(--text-dim); font-size: 0.9rem; line-height: 1.4; }
@@ -313,105 +331,105 @@
             
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop" alt="Track 08">
+                    <img src="assets/single8.png" alt="Track 08">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=X5Al7c9Mh1Y" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[08] NEON BLOOD</h3>
-                    <div class="data-meta">SINGLE // 2027</div>
+                    <h3>ชอบ [I like You]</h3>
+                    <div class="data-meta">December 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=500&auto=format&fit=crop" alt="Track 07">
+                    <img src="assets/single7.jpg" alt="Track 07">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=-2qzIjikJ4A" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[07] CYBERNETIC</h3>
-                    <div class="data-meta">EP // 2026</div>
+                    <h3>รับสิ [Answer The Phone]</h3>
+                    <div class="data-meta">October 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1557672172-298e090bd0f1?auto=format&fit=crop&q=80&w=500" alt="Bloodline">
+                    <img src="assets/single6.png" alt="Track 06">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=KQhgmYOJnjg" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[06] BLOODLINE</h3>
-                    <div class="data-meta">SINGLE // 2026</div>
+                    <h3>เป็นที่เธอหลอก [ Untruth ]</h3>
+                    <div class="data-meta">September 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&q=80&w=500" alt="No Signal">
+                    <img src="assets/single5.png" alt="Track 05">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=LNYqI4PIsag" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[05] NO SIGNAL</h3>
-                    <div class="data-meta">EP // 2025</div>
+                    <h3>กันลม [ Windbreak ]</h3>
+                    <div class="data-meta">August 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&q=80&w=500" alt="System Failure">
+                    <img src="assets/single-4.jpg" alt="Track 04">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=OOxyM867sjQ" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[04] SYSTEM Failure</h3>
-                    <div class="data-meta">ALBUM // 2024</div>
+                    <h3>ขอคืนกลับมา</h3>
+                    <div class="data-meta">June 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?q=80&w=500&auto=format&fit=crop" alt="Track 03">
+                    <img src="assets/single3.jpg" alt="Track 03">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=GR9_-Gix3iQ" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[03] OVERRIDE</h3>
-                    <div class="data-meta">SINGLE // 2024</div>
+                    <h3>What The Friend</h3>
+                    <div class="data-meta">May 2025</div>
+                </div>
+            </div>
+
+           <div class="data-card">
+                <div class="data-img-wrap">
+                    <img src="assets/single2.jpg" alt="Track 02">
+                    <div class="data-overlay">
+                        <a href="https://www.youtube.com/watch?v=UsLJ7TTA8Ck" target="_blank" class="cyber-btn">PLAY</a>
+                    </div>
+                </div>
+                <div class="data-info">
+                    <h3>ตัว(ไม่)จริง [ Rebound ]</h3>
+                    <div class="data-meta">May 2025</div>
                 </div>
             </div>
 
             <div class="data-card">
                 <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=500&auto=format&fit=crop" alt="Track 02">
+                    <img src="assets/single1.jpg" alt="Track 01">
                     <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
+                        <a href="https://www.youtube.com/watch?v=CayLo8s1aXQ" target="_blank" class="cyber-btn">PLAY</a>
                     </div>
                 </div>
                 <div class="data-info">
-                    <h3>[02] NEUROMANCER</h3>
-                    <div class="data-meta">EP // 2023</div>
-                </div>
-            </div>
-
-            <div class="data-card">
-                <div class="data-img-wrap">
-                    <img src="https://images.unsplash.com/photo-1620063234978-2c1ebf95701a?q=80&w=500&auto=format&fit=crop" alt="Track 01">
-                    <div class="data-overlay">
-                        <button class="cyber-btn">PLAY</button>
-                    </div>
-                </div>
-                <div class="data-info">
-                    <h3>[01] INITIAL_BOOT</h3>
-                    <div class="data-meta">SINGLE // 2023</div>
+                    <h3>Crazy About You [ Lo-Fi ]</h3>
+                    <div class="data-meta">Apr 2025</div>
                 </div>
             </div>
 
